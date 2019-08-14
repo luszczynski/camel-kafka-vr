@@ -90,14 +90,14 @@ To run in OpenShift:
 
 		mvn -P ocp fabric8:deploy
 
-10. Cleaning up 
-
-To clean up, run:
-
-		oc delete all -l app=camel-kafka-vr -n myproject
-
-6. Now Open:
+10. Now Open:
 
 		oc get route --no-headers | grep topicview | awk '{ print $2 }'
 		oc get route --no-headers | grep vr-myproject | awk '{ print $2 }'
 		oc get route --no-headers | grep vr-svc-strimzi | awk '{ print $2 "/webjars/swagger-ui/2.1.0/index.html?url=/camel/api-docs"}'
+
+11. Cleaning up 
+
+To clean up, run:
+
+		oc delete all -l app=camel-kafka-vr -n myproject
