@@ -47,59 +47,57 @@ To run in OpenShift:
 
 1. Create a minishift instance
 
-	minishift --profile amq-streams-demo start
+		minishift --profile amq-streams-demo start
 
 2. Login and access my project
 
-	oc login -u system:admin
-	oc project myproject
+		oc login -u system:admin
+		oc project myproject
 
 3. Create the necessary secrets for pulling from registry.io
 
-	oc create secret generic registry-io --from-file=.dockerconfigjson=/home/gustavo/.docker/config.json --type=kubernetes.io/dockerconfigjson -n myproject
-	oc secrets link default registry-io --for=pull -n myproject
-	oc secrets link builder registry-io -n myproject
+		oc create secret generic registry-io --from-file=.dockerconfigjson=/home/gustavo/.docker/config.json --type=kubernetes.io/dockerconfigjson -n myproject
+		oc secrets link default registry-io --for=pull -n myproject
+		oc secrets link builder registry-io -n myproject
 
 4. Install strimzi operator
 
-	oc apply -f install/cluster-operator -n myproject
-	oc apply -f examples/templates/cluster-operator -n myproject
-	oc secrets link strimzi-cluster-operator registry-io --for=pull -n myproject
+		oc apply -f install/cluster-operator -n myproject
+		oc apply -f examples/templates/cluster-operator -n myproject
+		oc secrets link strimzi-cluster-operator registry-io --for=pull -n myproject
 
 5. Create a kafka cluster
 
-	oc apply -f kafka/kafka-ephemeral-single.yaml -n myproject
-	oc secrets link my-cluster-zookeeper registry-io --for=pull -n myproject
+		oc apply -f kafka/kafka-ephemeral-single.yaml -n myproject
+		oc secrets link my-cluster-zookeeper registry-io --for=pull -n myproject
 
 6. Create a new topic
 
-	oc apply -f ocp/kafkatopic.yml -n myproject
+		oc apply -f ocp/kafkatopic.yml -n myproject
 
 7. Update files with your minishift ip
 
-	sed -i "s/REPLACE-ME/$(minishift ip)/" src/main/fabric8/topicview-route.yml
-	sed -i "s/REPLACE-ME/$(minishift ip)/" src/main/fabric8/swagger-std-route.yml
-	sed -i "s/REPLACE-ME/$(minishift ip)/" src/main/resources/application.properties
+		sed -i "s/REPLACE-ME/$(minishift ip)/" src/main/fabric8/topicview-route.yml
+		sed -i "s/REPLACE-ME/$(minishift ip)/" src/main/fabric8/swagger-std-route.yml
+		sed -i "s/REPLACE-ME/$(minishift ip)/" src/main/resources/application.properties
 
 8. Make sure fuse image stream is installed
 
-	BASEURL=https://raw.githubusercontent.com/jboss-fuse/application-templates/application-templates-2.1.fuse-000099-redhat-5/
-	oc apply -n openshift -f ${BASEURL}/fis-image-streams.json
+		BASEURL=https://raw.githubusercontent.com/jboss-fuse/application-templates/application-templates-2.1.fuse-000099-redhat-5/
+		oc apply -n openshift -f ${BASEURL}/fis-image-streams.json
 
 9. Deploy the VR app
 
-	mvn -P ocp fabric8:deploy
+		mvn -P ocp fabric8:deploy
 
 10. Cleaning up 
 
 To clean up, run:
 
-```bash
-oc delete all -l app=camel-kafka-vr -n myproject
-```
+		oc delete all -l app=camel-kafka-vr -n myproject
 
 6. Now Open:
 
-	oc get route --no-headers | grep topicview | awk '{ print $2 }'
-	oc get route --no-headers | grep vr-myproject | awk '{ print $2 }'
-	oc get route --no-headers | grep vr-svc-strimzi | awk '{ print $2 "/webjars/swagger-ui/2.1.0/index.html?url=/camel/api-docs"}'
+		oc get route --no-headers | grep topicview | awk '{ print $2 }'
+		oc get route --no-headers | grep vr-myproject | awk '{ print $2 }'
+		oc get route --no-headers | grep vr-svc-strimzi | awk '{ print $2 "/webjars/swagger-ui/2.1.0/index.html?url=/camel/api-docs"}'
