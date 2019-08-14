@@ -1,6 +1,8 @@
 Exposing Services integrating with Kafka using Camel
 ===========================
 
+REPO based on: https://gitlab.com/appdev-demos/camel-kafka-vr
+
 This Project uses Camel to integrate with Kafka and showcases different replay capabilities by handling offsets to move forward or backwards. It incorporates 3D views of the Kafka topic and Camel consumer to visually follow events and replays.
 
 ![Alt text](assets/swagger.png?raw=true "Title")
