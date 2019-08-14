@@ -12,8 +12,7 @@ metadata:
   annotations:
     haproxy.router.openshift.io/balance: roundrobin
 spec:
-  host: camel-kafka-vr-svc-strimzi.app.88.198.65.4.nip.io
-  path: "/webjars/swagger-ui/2.1.0/index.html?url=/camel/api-docs"
+  host: camel-kafka-vr-svc-strimzi.app.REPLACE-ME.nip.io
   to:
     kind: Service
     name: "${project.artifactId}-svc"

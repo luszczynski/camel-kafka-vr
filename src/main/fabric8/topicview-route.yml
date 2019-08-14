@@ -12,7 +12,7 @@ metadata:
   annotations:
     haproxy.router.openshift.io/balance: roundrobin
 spec:
-  host: camel-kafka-vr-strimzi.app.88.198.65.4.nip.io
+  host: camel-kafka-vr-strimzi.app.REPLACE-ME.nip.io
   path: "/topicview.html"
   to:
     kind: Service
