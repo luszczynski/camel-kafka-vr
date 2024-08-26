@@ -16,7 +16,7 @@
 		<fabric8.version>3.0.11.fuse-000039-redhat-1</fabric8.version>
 		<fabric8.maven.plugin.version>3.5.33.fuse-000067-redhat-1</fabric8.maven.plugin.version>
 		<maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
-		<swagger.ui.version>2.1.0</swagger.ui.version>
+		<swagger.ui.version>3.23.11</swagger.ui.version>
 		<swagger.codegen.version>2.3.1</swagger.codegen.version>
 		<cxf.codegen.version>3.1.11.fuse-000243-redhat-1</cxf.codegen.version>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
